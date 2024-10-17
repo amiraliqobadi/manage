@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Card from "../components/Card";
+import Card from "../components/Card.jsx";
 import Filter from "../components/Filter";
 import CSVDownload from "../components/CsvDownload.jsx";
 export default function FrytoPeyvandi() {
