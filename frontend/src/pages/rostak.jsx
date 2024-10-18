@@ -12,7 +12,7 @@ export default function Rostak() {
     }, []);
     const fetchCards = async () => {
         try {
-            let query = `http://localhost:8000/cards?shop=rostak`;
+            let query = `http://localhost:8080/cards?shop=rostak`;
 
             if (category) {
                 query += `&category=${encodeURIComponent(category)}`;
@@ -42,7 +42,7 @@ export default function Rostak() {
 
     const handleDelete = async (cardId) => {
         try {
-            await fetch(`http://localhost:8000/cards/${cardId}`, {
+            await fetch(`http://localhost:8080/cards/${cardId}`, {
                 method: "DELETE",
             });
             setCards(cards.filter((card) => card.id !== cardId));

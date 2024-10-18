@@ -33,7 +33,7 @@ const CategoryChart = () => {
         try {
             const promises = shops.map((shop) =>
                 axios.get(
-                    `http://localhost:8000/cards/categories?shop=${shop}&start_date=${startDate}&end_date=${endDate}`
+                    `http://localhost:8080/cards/categories?shop=${shop}&start_date=${startDate}&end_date=${endDate}`
                 )
             );
             const responses = await Promise.all(promises);

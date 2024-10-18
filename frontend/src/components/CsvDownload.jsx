@@ -28,7 +28,7 @@ const CSVDownload = ({ data }) => {
         a.setAttribute("href", url);
         a.setAttribute("download", "cards.csv");
         a.click();
-        URL.revokeObjectURL(url); // Clean up URL.createObjectURL
+        URL.revokeObjectURL(url); 
     };
 
     return (

@@ -6,7 +6,7 @@ const LoginPage = ({ setToken }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const navigate = useNavigate(); // Initialize the useNavigate hook
+    const navigate = useNavigate(); 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,7 +16,7 @@ const LoginPage = ({ setToken }) => {
 
         try {
             const response = await axios.post(
-                "http://localhost:8000/auth/access-token",
+                "http://localhost:8080/auth/access-token",
                 formData,
                 {
                     headers: {

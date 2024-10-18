@@ -25,7 +25,7 @@ const CreateCard = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:8000/cards/",
+                "http://localhost:8080/cards/",
                 formData,
                 {
                     headers: {
