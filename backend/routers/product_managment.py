@@ -109,22 +109,16 @@ async def read_all_cards(
     """
     Get all cards along with their images, filtered by shop, category, and date range.
     """
-    # Eagerly load cards with images using joinedload
     query = db.query(Card).options(joinedload(Card.images))
-
-    # Apply shop filter
     if shop:
         query = query.filter(Card.shop == shop)
 
-    # Apply category filter
     if category:
         query = query.filter(Card.category == category)
 
-    # Apply start date filter
     if start_date:
         query = query.filter(Card.created_at >= start_date)
 
-    # Apply end date filter
     if end_date:
         query = query.filter(Card.created_at <= end_date)
 
@@ -246,14 +240,12 @@ async def get_categories(
                 status_code=400, detail="Invalid end_date format. Use YYYY-MM-DD."
             )
 
-    # Fetch category data and sum amounts per category
     categories = (
         query.with_entities(Card.category, func.sum(Card.amount).label("total_amount"))
         .group_by(Card.category)
         .all()
     )
 
-    # Calculate total sum of all amounts in the filtered date range
     total_sum = query.with_entities(func.sum(Card.amount)).scalar() or 0
     return {
         "categories": jsonable_encoder(
@@ -265,5 +257,5 @@ async def get_categories(
                 for category, total_amount in categories
             ]
         ),
-        "total_sum": total_sum,  # Include the total sum in the response
+        "total_sum": total_sum,
     }
