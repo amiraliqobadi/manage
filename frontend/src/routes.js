@@ -6,7 +6,7 @@ import Rostak from "./pages/rostak";
 const routes = [
     { path: "/", Component: Home },
     { path: "*", Component: NotFound },
-    { path: "fryto/", Component: Fryto },
+    { path: "/fryto", Component: Fryto },
     { path: "/fryto/peyvandi", Component: FrytoPeyvandi },
     { path: "/rostak", Component: Rostak },
 ];

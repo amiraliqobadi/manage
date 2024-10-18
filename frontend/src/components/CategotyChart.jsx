@@ -5,16 +5,15 @@ import {
     Chart,
     LinearScale,
     CategoryScale,
-    BarElement, // Import BarElement for bar chart
+    BarElement, 
     Tooltip,
     Legend,
 } from "chart.js";
 
-// Register necessary components for bar charts
 Chart.register(
     LinearScale,
     CategoryScale,
-    BarElement, // Register BarElement for bar chart
+    BarElement,
     Tooltip,
     Legend
 );
@@ -42,12 +41,10 @@ const CategoryChart = () => {
             const allCategories = new Set();
             const shopData = {};
 
-            // Process data from all shops
             responses.forEach((response, index) => {
                 const shopName = shops[index];
-                const categories = response.data.categories; // Access the correct array
+                const categories = response.data.categories;
 
-                // Check if the categories is an array before calling forEach
                 if (Array.isArray(categories)) {
                     categories.forEach((item) => {
                         allCategories.add(item.category);
@@ -70,7 +67,6 @@ const CategoryChart = () => {
 
             const labels = Array.from(allCategories).sort();
 
-            // Create datasets for each shop
             const datasets = shops.map((shop, shopIndex) => {
                 const amounts = labels.map((label) => {
                     return shopData[label] &&
