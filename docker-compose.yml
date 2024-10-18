@@ -5,25 +5,33 @@ services:
     build:
       context: ./backend
     ports:
-      - "127.0.0.1:8080:8080"  
+      - "8080:8080"
     volumes:
-      - ./backend:/app  
+      - ./backend:/app
     environment:
-      - SQLALCHEMY_DATABASE_URL=sqlite:///./data.db 
+      - SQLALCHEMY_DATABASE_URL=sqlite:///./data.db
 
   vite_docker:
-    build: 
+    build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "8000:8000" 
+      - "8000:8000"
     volumes:
       - type: bind
         source: ./frontend
         target: /srv/app
     tty: true
-    command: ["npm", "run", "dev"] 
-
+    command: ["npm", "run", "dev"]
     environment:
-      VITE_BACKEND_URL: "http://backend:8080"  
+      VITE_BACKEND_URL: "http://localhost/api"  
 
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro 
+    ports:
+      - "80:80" 
+    depends_on:
+      - backend
+      - vite_docker
