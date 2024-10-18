@@ -1,5 +1,3 @@
-import React from "react";
-
 const CSVDownload = ({ data }) => {
     const downloadCSV = () => {
         const csvRows = [];
