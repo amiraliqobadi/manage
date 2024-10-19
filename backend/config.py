@@ -15,7 +15,7 @@ app.include_router(auth.router)
 app.include_router(product_managment.router)
 
 
-origins = ["http://localhost:8000", "http://127.0.0.1:8000"]
+origins = ["*"]
 
 
 app.add_middleware(
