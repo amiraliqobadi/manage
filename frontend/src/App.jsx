@@ -4,7 +4,7 @@ import routes from "./routes";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./ProtectedRoute";
 import Header from "./components/header";
-
+import { Toaster } from 'react-hot-toast';
 const App = () => {
     const [token, setToken] = useState(localStorage.getItem("token"));
 
@@ -20,6 +20,7 @@ const App = () => {
 
     return (
         <>
+            <Toaster />
             {isAuth && <Header />}
 
             <Routes>

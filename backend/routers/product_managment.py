@@ -23,7 +23,7 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.sql import func
 from fastapi import Query
 from datetime import date
-
+from sqlalchemy import desc
 router = APIRouter(prefix="/management", tags=["management"])
 
 
@@ -121,7 +121,8 @@ async def read_all_cards(
 
     if end_date:
         query = query.filter(Card.created_at <= end_date)
-
+        
+    
     cards = query.all()
 
     return jsonable_encoder(

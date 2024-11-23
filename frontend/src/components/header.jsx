@@ -10,7 +10,7 @@ export default function Header() {
     const handleLogout = async () => {
         try {
             await axios.post(
-                "http://localhost:8080/auth/logout",
+                "http://195.110.39.96:8080/auth/logout",
                 {},
                 {
                     headers: {

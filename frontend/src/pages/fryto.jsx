@@ -15,7 +15,7 @@ export default function Fryto() {
 
     const fetchCards = async () => {
         try {
-            let query = `http://localhost:8080/cards?shop=fryto`;
+            let query = `http://195.110.39.96:8080/cards?shop=fryto`;
 
             if (category) {
                 query += `&category=${encodeURIComponent(category)}`;
@@ -26,8 +26,6 @@ export default function Fryto() {
             if (endDate) {
                 query += `&end_date=${encodeURIComponent(endDate)}`;
             }
-
-            console.log("Fetching cards from:", query);
 
             const response = await fetch(query);
             if (!response.ok) {
@@ -47,7 +45,7 @@ export default function Fryto() {
 
     const handleDelete = async (cardId) => {
         try {
-            await fetch(`http://localhost:8080/cards/${cardId}`, {
+            await fetch(`http://195.110.39.96:8080/cards/${cardId}`, {
                 method: "DELETE",
             });
             setCards(cards.filter((card) => card.id !== cardId));
@@ -82,7 +80,7 @@ export default function Fryto() {
                         />
                     ))
                 ) : (
-                    <p>No cards found.</p>
+                    <p>is loading.</p>
                 )}
             </div>
         </div>

@@ -111,5 +111,6 @@ def login_for_access_token(
 @router.post("/logout")
 def logout(request: Request, response: Response):
     response.status_code = status.HTTP_200_OK
+    response.delete_cookie("Authorization")
     response.headers["WWW-Authenticate"] = "Bearer"
     return {"detail": "Successfully logged out"}

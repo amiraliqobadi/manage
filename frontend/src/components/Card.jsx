@@ -16,7 +16,7 @@ const Card = ({ description, img, category, onDelete, createDate, amount }) => {
                     img.map((image, index) => (
                         <img
                             key={index}
-                            src={`http://localhost:8080${img[0].image_url}`}
+                            src={`http://195.110.39.96:8080${img[0].image_url}`}
                             alt={`img-${index}`}
                             className="w-full"
                         />

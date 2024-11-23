@@ -1,13 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
-
+import toast from 'react-hot-toast';
 const CreateCard = () => {
     const [description, setDescription] = useState("");
     const [shop, setShop] = useState("");
     const [category, setCategory] = useState("");
     const [amount, setAmount] = useState(0);
     const [images, setImages] = useState([]);
-
+    const notify = () => toast('created');
     const handleFileChange = (event) => {
         setImages(event.target.files);
     };
@@ -25,7 +25,7 @@ const CreateCard = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:8080/cards/",
+                "http://195.110.39.96:8080/cards/",
                 formData,
                 {
                     headers: {
@@ -34,12 +34,12 @@ const CreateCard = () => {
                 }
             );
             console.log("Card created:", response.data);
-
             setDescription("");
             setShop("");
             setCategory("");
             setAmount(0);
             setImages([]);
+            notify();
         } catch (error) {
             if (error.response) {
                 console.error("Error creating card:", error.response.data);
