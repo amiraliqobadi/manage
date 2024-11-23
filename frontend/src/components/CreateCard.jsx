@@ -25,7 +25,7 @@ const CreateCard = () => {
 
         try {
             const response = await axios.post(
-                "http://195.110.39.96:8080/cards/",
+                "http://frytodashboard.ir:8080/cards/",
                 formData,
                 {
                     headers: {

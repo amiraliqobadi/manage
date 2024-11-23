@@ -15,12 +15,12 @@ app.include_router(auth.router)
 app.include_router(product_managment.router)
 
 
-origins = ["http://frytodashboard.ir", "http://195.110.39.96/"]
+origins = ["http://frytodashboard.ir"]
 
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

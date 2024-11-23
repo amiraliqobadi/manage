@@ -54,11 +54,6 @@ class CardRequest(BaseModel):
     category: Optional[str] = None
 
 
-
-
-
-
-
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_card(
     db: db_dependency,
@@ -92,7 +87,6 @@ async def create_card(
                 image_url=f"/static/imgs/{image.filename}", card_id=card.id
             )
             db.add(image_record)
-    await websocket_manager.broadcast("A new card has been created!")
     db.commit()
     db.refresh(card)
     return jsonable_encoder(
