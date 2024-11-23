@@ -7,7 +7,7 @@ const Card = ({ description, img, category, onDelete, createDate, amount }) => {
                 </div>
                 <p className="text-gray-700 text-base">Category: {category}</p>
                 <p className="text-gray-700 text-base">
-                    Create Date: {createDate}
+                    Create Date: {new Date(createDate).toLocaleString()}
                 </p>
                 <p className="text-gray-700 text-base">Amount: {amount}</p>
             </div>

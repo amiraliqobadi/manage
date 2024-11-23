@@ -8,6 +8,7 @@ services:
     volumes:
       - ./backend:/app
     environment:
+      - TZ=Asia/Tehran
       - SQLALCHEMY_DATABASE_URL=sqlite:///./data.db
     command: [ "uvicorn", "config:app", "--host", "0.0.0.0", "--port", "8080" ] # Ensure the backend listens on all interfaces
     restart: always # Automatically restart the backend service if it fails

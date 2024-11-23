@@ -1,7 +1,9 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, func
 from sqlalchemy.orm import relationship
 from database import Base
-
+import pytz
+from datetime import datetime
+tehran_tz = pytz.timezone("Asia/Tehran")
 
 class User(Base):
     __tablename__ = "User"
@@ -11,6 +13,7 @@ class User(Base):
     hashedPassword = Column(String)
 
 
+
 class Card(Base):
     __tablename__ = "cards"
     id = Column(Integer, primary_key=True, index=True)
@@ -18,15 +21,21 @@ class Card(Base):
     description = Column(String, nullable=True)
     shop = Column(String, nullable=True)
     category = Column(String, nullable=True)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    # Use Tehran timezone for created_at and updated_at
+    created_at = Column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(tehran_tz),
+        nullable=False,
+    )
     updated_at = Column(
         DateTime(timezone=True),
-        server_default=func.now(),
-        onupdate=func.now(),
+        default=lambda: datetime.now(tehran_tz),
+        onupdate=lambda: datetime.now(tehran_tz),
         nullable=True,
     )
-    images = relationship("Image", back_populates="card", cascade="all, delete-orphan")
 
+    images = relationship("Image", back_populates="card", cascade="all, delete-orphan")
 
 class Image(Base):
     __tablename__ = "images"

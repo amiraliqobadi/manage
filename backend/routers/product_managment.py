@@ -2,14 +2,15 @@ from fastapi import (
     APIRouter,
     Depends,
     HTTPException,
-    Path,
     Request,
     File,
     UploadFile,
     Form,
+    Query,
+    HTTPException,
 )
+from datetime import date,datetime
 import os
-from fastapi import HTTPException
 from starlette import status
 from sqlalchemy.orm import Session
 from datetime import datetime
@@ -21,10 +22,15 @@ from .auth import get_current_user
 from typing import List, Optional, Annotated
 from sqlalchemy.orm import joinedload
 from sqlalchemy.sql import func
-from fastapi import Query
 from datetime import date
 from sqlalchemy import desc
+import pytz
+
+
+
 router = APIRouter(prefix="/management", tags=["management"])
+tehran_tz = pytz.timezone("Asia/Tehran")
+current_time = datetime.now(tehran_tz)
 
 
 def get_db():
@@ -46,6 +52,11 @@ class CardRequest(BaseModel):
     description: Optional[str] = None
     shop: Optional[str] = None
     category: Optional[str] = None
+
+
+
+
+
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
@@ -81,7 +92,7 @@ async def create_card(
                 image_url=f"/static/imgs/{image.filename}", card_id=card.id
             )
             db.add(image_record)
-
+    await websocket_manager.broadcast("A new card has been created!")
     db.commit()
     db.refresh(card)
     return jsonable_encoder(
@@ -106,10 +117,9 @@ async def read_all_cards(
     start_date: Optional[date] = Query(None),
     end_date: Optional[date] = Query(None),
 ):
-    """
-    Get all cards along with their images, filtered by shop, category, and date range.
-    """
+    tehran_tz = pytz.timezone("Asia/Tehran")
     query = db.query(Card).options(joinedload(Card.images))
+    
     if shop:
         query = query.filter(Card.shop == shop)
 
@@ -117,13 +127,14 @@ async def read_all_cards(
         query = query.filter(Card.category == category)
 
     if start_date:
+        start_date = datetime.combine(start_date, datetime.min.time(), tzinfo=tehran_tz)
         query = query.filter(Card.created_at >= start_date)
 
     if end_date:
+        end_date = datetime.combine(end_date, datetime.max.time(), tzinfo=tehran_tz)
         query = query.filter(Card.created_at <= end_date)
-        
-    
-    cards = query.all()
+
+    cards = query.order_by(Card.created_at.desc()).all()
 
     return jsonable_encoder(
         cards,
@@ -137,7 +148,6 @@ async def read_all_cards(
             "amount",
         },
     )
-
 
 @router.put("/{card_id}", status_code=status.HTTP_200_OK)
 async def update_card(
