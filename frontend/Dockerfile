@@ -1,5 +1,4 @@
-# Use the official Node.js image
-FROM node:16-alpine 
+FROM node:latest
 
 # Set the working directory
 WORKDIR /srv/app
@@ -13,8 +12,5 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port that Vite uses
-EXPOSE 8000
-
-# Command to run the Vite development server
+# Start the application
 CMD ["npm", "run", "dev"]
