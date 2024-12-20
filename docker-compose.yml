@@ -4,36 +4,36 @@ services:
     build:
       context: ./backend
     ports:
-      - "8080:8080" # Exposing port 8080 for the backend
+      - "8080:8080" 
     volumes:
       - ./backend:/app
     environment:
       - TZ=Asia/Tehran
       - SQLALCHEMY_DATABASE_URL=sqlite:///./data.db
-    command: [ "uvicorn", "config:app", "--host", "0.0.0.0", "--port", "8080" ] # Ensure the backend listens on all interfaces
-    restart: always # Automatically restart the backend service if it fails
+    command: [ "uvicorn", "config:app", "--host", "0.0.0.0", "--port", "8080" ] 
+    restart: always 
 
   vite_docker:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "8000:8000" # Exposing port 8000 for Vite
+      - "8000:8000" 
     volumes:
       - type: bind
         source: ./frontend
         target: /srv/app
     tty: true
-    command: [ "npm", "run", "dev" ] # Start Vite development server
+    command: [ "npm", "run", "dev" ] 
     environment:
-      VITE_BACKEND_URL: "http://backend:8080/api" # Use the service name for backend URL
+      VITE_BACKEND_URL: "http://backend:8080/api" 
 
   nginx:
-    image: nginx:latest
+    image: nginx:1.23
     ports:
-      - "80:80" # Exposing port 80 for Nginx
+      - "80:80" 
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # Ensure Nginx uses your configuration
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro 
     depends_on:
-      - backend # Wait for backend to start before starting Nginx
-    restart: always # Automatically restart Nginx if it fails
+      - backend 
+    restart: always 

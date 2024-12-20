@@ -15,7 +15,7 @@ export default function Fryto() {
 
     const fetchCards = async () => {
         try {
-            let query = `http://195.110.39.96:8080/cards?shop=fryto`;
+            let query = `http://193.151.140.110:8080/cards?shop=fryto`;
 
             if (category) {
                 query += `&category=${encodeURIComponent(category)}`;
@@ -45,7 +45,7 @@ export default function Fryto() {
 
     const handleDelete = async (cardId) => {
         try {
-            await fetch(`http://195.110.39.96:8080/cards/${cardId}`, {
+            await fetch(`http://193.151.140.110:8080/cards/${cardId}`, {
                 method: "DELETE",
             });
             setCards(cards.filter((card) => card.id !== cardId));

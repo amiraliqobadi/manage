@@ -25,7 +25,7 @@ const CreateCard = () => {
 
         try {
             const response = await axios.post(
-                "http://frytodashboard.ir:8080/cards/",
+                "http://193.151.140.110:8080/cards/",
                 formData,
                 {
                     headers: {
@@ -73,7 +73,7 @@ const CreateCard = () => {
                     <option value="">Select Shop</option>
                     <option value="fryto">fryto</option>
                     <option value="rostak">rostak</option>
-                    <option value="fryto peyvandi">fryto peyvandi</option>
+                    <option value="fryto peyvandi">fryto 2</option>
                 </select>
                 <select
                     value={category}

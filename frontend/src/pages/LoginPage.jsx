@@ -16,7 +16,7 @@ const LoginPage = ({ setToken }) => {
 
         try {
             const response = await axios.post(
-                "http://195.110.39.96:8080/auth/access-token",
+                "http://193.151.140.110:8080/auth/access-token",
                 formData,
                 {
                     headers: {

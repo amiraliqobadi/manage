@@ -10,7 +10,7 @@ export default function Header() {
     const handleLogout = async () => {
         try {
             await axios.post(
-                "http://195.110.39.96:8080/auth/logout",
+                "http://193.151.140.110:8080/auth/logout",
                 {},
                 {
                     headers: {
@@ -74,7 +74,7 @@ export default function Header() {
                                 className="rounded-full ps-2 pe-2"
                                 to="/fryto/peyvandi"
                             >
-                                Fryto Peyvandi
+                                Fryto 2
                             </Link>
                         </div>
                     </div>
@@ -135,7 +135,7 @@ export default function Header() {
                                     to="/fryto/peyvandi"
                                     onClick={() => setMobile(false)}
                                 >
-                                    Fryto Peyvandi
+                                    Fryto 2
                                 </Link>
                             </li>
                             <li className="mb-1">

@@ -78,14 +78,15 @@ async def create_card(
     if images:
         for image in images:
 
-            image_path = f"static/imgs/{image.filename}"
+            image_dir = "static/imgs/"
+            os.makedirs(image_dir, exist_ok=True)
+
+            image_path = os.path.join(image_dir, image.filename)
 
             with open(image_path, "wb") as buffer:
                 buffer.write(await image.read())
 
-            image_record = Image(
-                image_url=f"/static/imgs/{image.filename}", card_id=card.id
-            )
+            image_record = Image(image_url=f"/static/imgs/{image.filename}", card_id=card.id)
             db.add(image_record)
     db.commit()
     db.refresh(card)
