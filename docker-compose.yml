@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8080:8080" 
+    volumes:
+      - ./backend:/app
+    environment:
+      - TZ=Asia/Tehran
+      - SQLALCHEMY_DATABASE_URL=sqlite:///./data.db
+    command: [ "uvicorn", "config:app", "--host", "0.0.0.0", "--port", "8080" ] 
+    restart: always 
+
+  vite_docker:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000" 
+    volumes:
+      - type: bind
+        source: ./frontend
+        target: /srv/app
+    tty: true
+    command: [ "npm", "run", "dev" ] 
+    environment:
+      VITE_BACKEND_URL: "http://backend:8080/api" 
+
+  nginx:
+    image: nginx:1.23
+    ports:
+      - "80:80" 
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro 
+    depends_on:
+      - backend 
+    restart: always 
